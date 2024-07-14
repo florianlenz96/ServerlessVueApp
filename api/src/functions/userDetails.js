@@ -5,7 +5,7 @@ app.http("userDetails", {
   authLevel: "anonymous",
   handler: async (request, context) => {
     var text = "Stranger 👋 (please login)";
-    const header = request.headers["x-ms-client-principal"];
+    const header = request.headers.get("x-ms-client-principal");
     if (header) {
       const user = JSON.parse(Buffer.from(header, "base64").toString("utf-8"));
       text = `${user.userDetails}!`;
