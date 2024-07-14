@@ -1,21 +1,28 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 defineProps<{ msg: string }>();
 
-(async () => {
-  const res = await fetch("/api/userDetails");
-  const data = await res.json();
-  document.querySelector("#userDetails").innerHTML = data.text;
-})();
+onMounted(async () => {
+  try {
+    const res = await fetch("/api/userDetails");
+    const data = await res.json();
+    userDetails.value = data.text;
+  } catch (error) {
+    userDetails.value = "World";
+  }
+});
 
+const userDetails = ref("");
 const count = ref(0);
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
 
-  <h2>Hello <b id="userDetails"></b></h2>
+  <h2>
+    Hello <b id="userDetails">{{ userDetails }}</b>
+  </h2>
 
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
