@@ -6,8 +6,11 @@ defineProps<{ msg: string }>();
 onMounted(async () => {
   try {
     const res = await fetch("/api/userDetails");
-    const data = await res.json();
-    userDetails.value = data.text;
+    console.log("fetched user details");
+    console.log(res);
+    const data = await res.text();
+    console.log(data);
+    userDetails.value = data;
   } catch (error) {
     userDetails.value = "World";
   }

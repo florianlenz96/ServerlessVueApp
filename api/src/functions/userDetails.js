@@ -8,9 +8,9 @@ app.http("userDetails", {
     const header = request.headers["x-ms-client-principal"];
     if (header) {
       const user = JSON.parse(Buffer.from(header, "base64").toString("utf-8"));
-      text = `Hello ${user.userDetails}!`;
+      text = `${user.userDetails}!`;
     }
 
-    return { text };
+    return { body: text };
   },
 });
